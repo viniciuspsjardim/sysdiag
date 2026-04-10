@@ -1,0 +1,172 @@
+============================================================
+  SysDiag — Relatório de Diagnóstico
+  Gerado em: 2026-04-07 14:30:00
+============================================================
+
+────────────────────────────────────────────────────────────
+  INFORMAÇÕES DO SISTEMA
+────────────────────────────────────────────────────────────
+  SO           : Windows 11 Pro
+  Versão       : Windows 11 (Build 10.0.26200)
+  Arquitetura  : AMD64
+  Hostname     : DESKTOP-EXEMPLO
+  Python       : 3.12.0
+  Privilegiado : Não
+
+────────────────────────────────────────────────────────────
+  RESUMO EXECUTIVO
+────────────────────────────────────────────────────────────
+  [ATENÇÃO] REDE: 5 ok / 1 erros / 0 avisos
+  [OK] HARDWARE: 4 ok / 0 erros / 1 avisos
+  [OK] SISTEMA: 3 ok / 0 erros / 1 avisos
+
+────────────────────────────────────────────────────────────
+  REDE — Resultados Detalhados
+────────────────────────────────────────────────────────────
+
+  [OK] ping
+    Comando: ping -n 4 8.8.8.8
+    Duração: 3245.12ms
+    | Pinging 8.8.8.8 with 32 bytes of data:
+    | Reply from 8.8.8.8: bytes=32 time=12ms TTL=118
+    | Reply from 8.8.8.8: bytes=32 time=11ms TTL=118
+    | Reply from 8.8.8.8: bytes=32 time=12ms TTL=118
+    | Reply from 8.8.8.8: bytes=32 time=11ms TTL=118
+    |
+    | Ping statistics for 8.8.8.8:
+    |     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)
+
+  [OK] dns_lookup
+    Comando: nslookup google.com
+    Duração: 450.8ms
+    | Server:  dns.google
+    | Address:  8.8.8.8
+    |
+    | Non-authoritative answer:
+    | Name:    google.com
+    | Addresses:  142.250.79.46
+
+  [INFO] dns_resolve
+    hostname: google.com
+    aliases: []
+    addresses: ['142.250.79.46']
+
+  [OK] interfaces
+    Comando: ipconfig /all
+    Duração: 120.5ms
+    | Windows IP Configuration
+    | Host Name . . . . . . . . . . : DESKTOP-EXEMPLO
+    | Ethernet adapter:
+    |   IPv4 Address. . . . . . . . : 192.168.1.100
+    |   Subnet Mask . . . . . . . . : 255.255.255.0
+    |   Default Gateway . . . . . . : 192.168.1.1
+
+  [OK] open_ports
+    Comando: netstat -an
+    Duração: 890.3ms
+    | Active Connections
+    |   TCP  0.0.0.0:135   LISTENING
+    |   TCP  0.0.0.0:445   LISTENING
+    |   TCP  192.168.1.100:49152  40.83.240.146:443  ESTABLISHED
+
+  [ERRO] traceroute
+    Comando: tracert 8.8.8.8
+    Duração: 120000.0ms
+    Erro: Tempo limite excedido (120s).
+    Tipo de erro: timeout
+
+────────────────────────────────────────────────────────────
+  HARDWARE — Resultados Detalhados
+────────────────────────────────────────────────────────────
+
+  [OK] cpu_info
+    Comando: wmic cpu get Name,NumberOfCores,MaxClockSpeed
+    Duração: 320.1ms
+    | MaxClockSpeed  Name                                  NumberOfCores
+    | 2500           12th Gen Intel(R) Core(TM) i7-12700H  14
+
+  [INFO] cpu_count
+    logical_cpus: 20
+
+  [OK] memory_info
+    Comando: wmic memorychip get Capacity,Speed,Manufacturer
+    Duração: 280.5ms
+    | Capacity     Manufacturer  Speed
+    | 17179869184  Samsung       4800
+    | 17179869184  Samsung       4800
+
+  [OK] disk_info
+    Comando: wmic diskdrive get Status,Size,Model
+    Duração: 250.3ms
+    | Model                    Size            Status
+    | Samsung SSD 990 PRO 1TB  1000204886016   OK
+
+  [INFO] disk_usage
+    total_gb: 931.51
+    used_gb: 423.78
+    free_gb: 507.73
+    percent_used: 45.5
+
+  [ERRO] temperature
+    Comando: wmic /namespace:... Sensor
+    Duração: 150.0ms
+    Erro: Software de monitoramento não instalado
+    Tipo de erro: not_found
+
+────────────────────────────────────────────────────────────
+  SISTEMA — Resultados Detalhados
+────────────────────────────────────────────────────────────
+
+  [OK] uptime
+    Comando: powershell (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime
+    Duração: 980.2ms
+    | Days    : 3
+    | Hours   : 14
+    | Minutes : 22
+
+  [OK] process_list
+    Comando: tasklist
+    Duração: 450.0ms
+    | Image Name                     PID  Mem Usage
+    | System Idle Process              0       8 K
+    | System                           4     128 K
+    | explorer.exe                  5832  120,456 K
+    | ... (saída truncada)
+
+  [OK] services
+    Comando: powershell Get-Service
+    Duração: 1200.5ms
+    | Name          Status   DisplayName
+    | AudioSrv      Running  Windows Audio
+    | Dhcp          Running  DHCP Client
+    | DNSCache      Running  DNS Client
+
+  [ERRO] error_logs
+    Comando: powershell Get-EventLog -LogName System -EntryType Error
+    Duração: 800.0ms
+    Erro: Acesso negado. Execute como Administrador.
+
+────────────────────────────────────────────────────────────
+  LOG DE OPERAÇÕES
+────────────────────────────────────────────────────────────
+  [i] 2026-04-07T14:29:55 | core/inicio: Sessão de diagnóstico iniciada
+  [OK] 2026-04-07T14:29:58 | rede/ping: Ping para 8.8.8.8: OK
+  [OK] 2026-04-07T14:30:02 | rede/dns_lookup: Resolução DNS para google.com: OK
+  [OK] 2026-04-07T14:30:03 | rede/dns_resolve: Resolução de google.com: ['142.250.79.46']
+  [OK] 2026-04-07T14:30:04 | rede/interfaces: Interfaces de rede coletadas
+  [OK] 2026-04-07T14:30:05 | rede/portas: Portas abertas coletadas
+  [!] 2026-04-07T14:32:05 | rede/traceroute: Traceroute para 8.8.8.8: timeout
+  [OK] 2026-04-07T14:32:06 | hardware/cpu_info: Informações da CPU coletadas
+  [OK] 2026-04-07T14:32:07 | hardware/memory_info: Informações de memória coletadas
+  [OK] 2026-04-07T14:32:07 | hardware/disk_info: Informações de disco coletadas
+  [OK] 2026-04-07T14:32:07 | hardware/disk_usage: Uso de disco: 45.5%
+  [!] 2026-04-07T14:32:08 | hardware/temperatura: Leitura indisponível
+  [OK] 2026-04-07T14:32:09 | sistema/uptime: Uptime: 3d 14h 22m
+  [OK] 2026-04-07T14:32:09 | sistema/processos: Processos listados
+  [OK] 2026-04-07T14:32:10 | sistema/servicos: Serviços listados
+  [!] 2026-04-07T14:32:10 | sistema/logs_erro: Acesso negado
+  [i] 2026-04-07T14:32:10 | core/fim: Sessão de diagnóstico encerrada
+
+============================================================
+  Fim do relatório
+============================================================

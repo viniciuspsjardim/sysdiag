@@ -1,0 +1,212 @@
+{
+  "sysdiag_report": {
+    "version": "1.0.0",
+    "generated_at": "2026-04-07T14:30:00.000000",
+    "system_info": {
+      "os_name": "windows",
+      "os_display": "Windows 11 Pro",
+      "version": "Windows 11 (Build 10.0.26200)",
+      "architecture": "AMD64",
+      "hostname": "DESKTOP-EXEMPLO",
+      "python_version": "3.12.0",
+      "is_elevated": false,
+      "extra": {
+        "processor": "Intel64 Family 6 Model 154 Stepping 3",
+        "platform": "Windows-11-10.0.26200-SP0"
+      }
+    },
+    "summary": {
+      "rede": {
+        "total_tests": 6,
+        "sucesso": 5,
+        "erros": 1,
+        "avisos": 0
+      },
+      "hardware": {
+        "total_tests": 5,
+        "sucesso": 4,
+        "erros": 0,
+        "avisos": 1
+      },
+      "sistema": {
+        "total_tests": 4,
+        "sucesso": 3,
+        "erros": 0,
+        "avisos": 1
+      }
+    },
+    "results": {
+      "rede": {
+        "ping": {
+          "command": "ping -n 4 8.8.8.8",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Pinging 8.8.8.8 with 32 bytes of data:\nReply from 8.8.8.8: bytes=32 time=12ms TTL=118\nReply from 8.8.8.8: bytes=32 time=11ms TTL=118\nReply from 8.8.8.8: bytes=32 time=12ms TTL=118\nReply from 8.8.8.8: bytes=32 time=11ms TTL=118\n\nPing statistics for 8.8.8.8:\n    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)",
+          "stderr": "",
+          "duration_ms": 3245.12,
+          "error_type": null
+        },
+        "dns_lookup": {
+          "command": "nslookup google.com",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Server:  dns.google\nAddress:  8.8.8.8\n\nNon-authoritative answer:\nName:    google.com\nAddresses:  142.250.79.46",
+          "stderr": "",
+          "duration_ms": 450.8,
+          "error_type": null
+        },
+        "dns_resolve": {
+          "hostname": "google.com",
+          "aliases": [],
+          "addresses": ["142.250.79.46"]
+        },
+        "interfaces": {
+          "command": "ipconfig /all",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Windows IP Configuration\n\n   Host Name . . . . . . . . . . : DESKTOP-EXEMPLO\n   Primary Dns Suffix  . . . . . :\n\nEthernet adapter Ethernet:\n   IPv4 Address. . . . . . . . . : 192.168.1.100\n   Subnet Mask . . . . . . . . . : 255.255.255.0\n   Default Gateway . . . . . . . : 192.168.1.1",
+          "stderr": "",
+          "duration_ms": 120.5,
+          "error_type": null
+        },
+        "open_ports": {
+          "command": "netstat -an",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Active Connections\n\n  Proto  Local Address          Foreign Address        State\n  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING\n  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING\n  TCP    192.168.1.100:49152    40.83.240.146:443      ESTABLISHED",
+          "stderr": "",
+          "duration_ms": 890.3,
+          "error_type": null
+        },
+        "traceroute": {
+          "command": "tracert 8.8.8.8",
+          "success": false,
+          "return_code": -1,
+          "stdout": "",
+          "stderr": "Tempo limite excedido (120s).",
+          "duration_ms": 120000.0,
+          "error_type": "timeout"
+        }
+      },
+      "hardware": {
+        "cpu_info": {
+          "command": "wmic cpu get Name,NumberOfCores,MaxClockSpeed",
+          "success": true,
+          "return_code": 0,
+          "stdout": "MaxClockSpeed  Name                                      NumberOfCores\n2500           12th Gen Intel(R) Core(TM) i7-12700H       14",
+          "stderr": "",
+          "duration_ms": 320.1,
+          "error_type": null
+        },
+        "cpu_count": {
+          "logical_cpus": 20
+        },
+        "memory_info": {
+          "command": "wmic memorychip get Capacity,Speed,Manufacturer",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Capacity     Manufacturer  Speed\n17179869184  Samsung       4800\n17179869184  Samsung       4800",
+          "stderr": "",
+          "duration_ms": 280.5,
+          "error_type": null
+        },
+        "disk_info": {
+          "command": "wmic diskdrive get Status,Size,Model",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Model                    Size            Status\nSamsung SSD 990 PRO 1TB  1000204886016   OK",
+          "stderr": "",
+          "duration_ms": 250.3,
+          "error_type": null
+        },
+        "disk_usage": {
+          "total_gb": 931.51,
+          "used_gb": 423.78,
+          "free_gb": 507.73,
+          "percent_used": 45.5
+        },
+        "temperature": {
+          "command": "wmic /namespace:\\\\root\\OpenHardwareMonitor path Sensor where SensorType='Temperature' get Name,Value",
+          "success": false,
+          "return_code": -1,
+          "stdout": "",
+          "stderr": "Comando não encontrado ou software de monitoramento não instalado",
+          "duration_ms": 150.0,
+          "error_type": "not_found"
+        }
+      },
+      "sistema": {
+        "uptime": {
+          "command": "powershell -Command (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Days    : 3\nHours   : 14\nMinutes : 22",
+          "stderr": "",
+          "duration_ms": 980.2,
+          "error_type": null
+        },
+        "process_list": {
+          "command": "tasklist",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Image Name                     PID Session Name        Mem Usage\n========================= ======== ================ ============\nSystem Idle Process              0 Services                8 K\nSystem                           4 Services              128 K\nexplorer.exe                  5832 Console           120,456 K",
+          "stderr": "",
+          "duration_ms": 450.0,
+          "error_type": null
+        },
+        "services": {
+          "command": "powershell -Command Get-Service",
+          "success": true,
+          "return_code": 0,
+          "stdout": "Name          Status   DisplayName\n----          ------   -----------\nAudioSrv      Running  Windows Audio\nDhcp          Running  DHCP Client\nDNSCache      Running  DNS Client",
+          "stderr": "",
+          "duration_ms": 1200.5,
+          "error_type": null
+        },
+        "error_logs": {
+          "command": "powershell -Command Get-EventLog -LogName System -EntryType Error -Newest 20",
+          "success": false,
+          "return_code": 1,
+          "stdout": "",
+          "stderr": "Acesso negado ao log de eventos. Execute como Administrador.",
+          "duration_ms": 800.0,
+          "error_type": null
+        }
+      }
+    },
+    "log": {
+      "session_start": "2026-04-07T14:29:55.000000",
+      "session_end": "2026-04-07T14:32:10.000000",
+      "total_entries": 18,
+      "entries": [
+        {
+          "timestamp": "2026-04-07T14:29:55.100000",
+          "module": "core",
+          "action": "inicio",
+          "status": "info",
+          "message": "Sessão de diagnóstico iniciada",
+          "data": {"os": "windows", "version": "Windows 11 (Build 10.0.26200)", "elevated": false},
+          "error": null
+        },
+        {
+          "timestamp": "2026-04-07T14:29:58.345000",
+          "module": "rede",
+          "action": "ping",
+          "status": "sucesso",
+          "message": "Ping para 8.8.8.8: OK",
+          "data": {"host": "8.8.8.8"},
+          "error": null
+        },
+        {
+          "timestamp": "2026-04-07T14:32:10.000000",
+          "module": "core",
+          "action": "fim",
+          "status": "info",
+          "message": "Sessão de diagnóstico encerrada",
+          "data": null,
+          "error": null
+        }
+      ]
+    }
+  }
+}
